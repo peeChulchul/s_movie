@@ -7,6 +7,7 @@
     height: 70px;
     position: sticky;
     top: 0;
+    z-index: 2;
 }
 
 .header__container {
@@ -112,7 +113,7 @@
     justify-content: center;
     align-items: center;
     background-color: var(--color-black);
-    z-index: 2;
+    z-index: 1;
 }
 .card__next:hover,
 .card__prev:hover {

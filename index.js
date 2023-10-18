@@ -10,9 +10,6 @@ const counter = {
     nowPlaying: 0,
 };
 
-// let popularCounter = 0;
-// let topRatedCounter = 0;
-// let nowPlayingCounter = 0;
 // API
 
 const options = {
@@ -43,7 +40,7 @@ const NowPlaying = fetch(`https://api.themoviedb.org/3/movie/now_playing?languag
 })();
 
 function makeCard(category, movies) {
-    const container = Array.from($cardCarousels).find((box) => box.classList.contains(category));
+    const container = Array.from($cardCarousels).find((cardCarousel) => cardCarousel.classList.contains(category));
     const { results } = movies;
 
     // create 및 add 및 append....
