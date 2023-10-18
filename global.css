@@ -122,20 +122,28 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+button {
+    border: none;
+    padding: 0px;
+    background-color: unset;
+}
 
 * {
     box-sizing: border-box;
 }
 
-/* Var CSS */
+body {
+    background-color: var(--color-primary);
+}
 
+/* Var CSS */
 :root {
     /* App Colors */
-    --color-primary: var(--color-blue);
-    --color-primary-variant: var(--color-dark-blue);
-    --color-accent: var(--color-light-blue);
-    --color-accent-variant: var(--color-red);
-    --color-text: var(--color-cream);
+    --color-primary: var(--color-light-blue);
+    --color-primary-variant: var(--color-blue);
+    --color-accent: var(--color-cream);
+    --color-accent-variant: var(--color-purple);
+    --color-text: var(--color-white);
 
     /* Colors */
     --color-white: #ffffff;
@@ -144,5 +152,5 @@ table {
     --color-blue: #6a7892;
     --color-light-blue: #afc4e3;
     --color-cream: #ffe8c4;
-    --color-dark-blue: #382b3d;
+    --color-purple: #3b2a43;
 }

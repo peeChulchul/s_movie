@@ -8,10 +8,53 @@
     </head>
     <body>
         <!-- 헤더 -->
-        <header></header>
+        <header id="header">
+            <div class="header__container">
+                <nav class="header__nav">
+                    <h1 class="header__title">S Movie</h1>
+                    <button class="header__nav__button">영화</button>
+                    <button class="header__nav__button">TV프로그램</button>
+                </nav>
+                <form class="header__form">
+                    <input class="header__form__input" placeholder="제목을 입력해주세요" />
+                    <button class="header__form__button">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+        </header>
         <!-- 메인 -->
-        <main></main>
-        <!-- 푸터 -->
+        <div id="main">
+            <section class="category">
+                <h2 class="category__title">인기영화</h2>
+                <main class="card_container">
+                    <div class="card"></div>
+                </main>
+            </section>
+            <section class="category">
+                <h2 class="category__title">액션영화</h2>
+                <main class="card_container">
+                    <div class="card"></div>
+                </main>
+            </section>
+            <section class="category">
+                <h2 class="category__title">최신영화</h2>
+                <main class="card_container">
+                    <div class="card"></div>
+                </main>
+            </section>
+
+            <!-- 푸터 -->
+        </div>
+        <footer id="footer">
+            <div class="footer__container">
+                <h1 class="footer__title">S Movie</h1>
+                <p>S Movie -all rights reserved</p>
+                <p>@TMDB @fontAwesome @SpartaCodingClub</p>
+            </div>
+        </footer>
+        <!-- 스크립트 -->
+        <script src="https://kit.fontawesome.com/3598ac7256.js" crossorigin="anonymous"></script>
         <script src="index.js"></script>
     </body>
 </html>

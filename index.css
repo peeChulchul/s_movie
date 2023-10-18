@@ -1,1 +1,115 @@
 @import url(global.css);
+/* header */
+
+#header {
+    background-color: var(--color-primary-variant);
+    filter: brightness(110%);
+    height: 70px;
+    position: sticky;
+    top: 0;
+}
+
+.header__container {
+    height: 100%;
+    align-items: center;
+    max-width: 1200px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+}
+
+.header__title {
+    color: var(--color-accent);
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.header__nav {
+    align-items: center;
+    display: flex;
+    gap: 10px;
+}
+
+.header__nav__button {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.header__form {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.header__form__input {
+    height: 30px;
+    padding: 8px 10px;
+    padding-right: 30px;
+    min-width: 50ch;
+    border-radius: 4px;
+    border: none;
+    outline-color: var(--color-accent-variant);
+}
+
+.header__form__button {
+    position: absolute;
+    right: 0px;
+    height: 30px;
+    width: 30px;
+}
+
+/* main */
+#main {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.category {
+    margin: 40px 0px;
+}
+
+.category__title {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* grid */
+.card_container {
+    display: grid;
+    margin-top: 20px;
+}
+
+.card {
+    height: 350px;
+    width: 250px;
+    background-image: url('https://www.themoviedb.org/t/p/w440_and_h660_face/yN5KXAghaYWCa344DePyF7wjkwj.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 30px;
+}
+
+/* footer */
+
+#footer {
+    background-color: var(--color-primary-variant);
+    filter: brightness(110%);
+    height: 100px;
+}
+
+.footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8px 0px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.footer__title {
+    color: var(--color-accent);
+    font-size: 30px;
+    font-weight: bold;
+}
