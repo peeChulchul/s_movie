@@ -74,20 +74,50 @@
     font-weight: bold;
 }
 
-/* grid */
+/* card */
 .card_container {
-    display: grid;
     margin-top: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.card_carousel {
+    display: flex;
 }
 
 .card {
+    flex-shrink: 0;
     height: 350px;
-    width: 250px;
-    background-image: url('https://www.themoviedb.org/t/p/w440_and_h660_face/yN5KXAghaYWCa344DePyF7wjkwj.jpg');
+    width: 240px;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 30px;
+}
+
+.card__next,
+.card__prev {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 50%;
+    padding: 4px;
+    color: var(--color-text);
+    border-radius: 50%;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-black);
+}
+.card__next:hover,
+.card__prev:hover {
+    background-color: var(--color-primary);
+    color: var(--color-black);
+}
+
+.card__next {
+    right: 0;
 }
 
 /* footer */
