@@ -1,6 +1,18 @@
 // Dom
 const $cardCarousels = document.querySelectorAll('.card_carousel');
+const $cardNext = document.querySelectorAll('.card__next');
+const $cardPrev = document.querySelectorAll('.card__prev');
 
+// counter
+const counter = {
+    popular: 0,
+    topRated: 0,
+    nowPlaying: 0,
+};
+
+// let popularCounter = 0;
+// let topRatedCounter = 0;
+// let nowPlayingCounter = 0;
 // API
 
 const options = {
@@ -33,6 +45,29 @@ const NowPlaying = fetch(`https://api.themoviedb.org/3/movie/now_playing?languag
 function makeCard(category, movies) {
     const container = Array.from($cardCarousels).find((box) => box.classList.contains(category));
     const { results } = movies;
+
+    // create 및 add 및 append....
+    const next = document.createElement('button');
+    const nextArrow = document.createElement('i');
+    const prevArrow = document.createElement('i');
+    const prev = document.createElement('button');
+    prevArrow.classList.add('fa-solid');
+    prevArrow.classList.add('fa-backward');
+    nextArrow.classList.add('fa-solid');
+    nextArrow.classList.add('fa-forward');
+    next.classList.add('card__next');
+    prev.classList.add('card__prev');
+    next.appendChild(nextArrow);
+    prev.appendChild(prevArrow);
+
+    container.parentNode.insertBefore(prev, container);
+    container.parentNode.insertBefore(next, container);
+
+    // next 및 prev에 이벤트리스너 장착
+
+    next.addEventListener('click', (e) => onClickCardNav(e, container));
+    prev.addEventListener('click', (e) => onClickCardNav(e, container));
+
     results.forEach((movie) => {
         const card = document.createElement('div');
         card.classList.add('card');
@@ -41,4 +76,21 @@ function makeCard(category, movies) {
     });
     console.log(container);
     console.log(movies);
+}
+
+function onClickCardNav(e, container) {
+    const next = e.currentTarget.classList.contains('card__next');
+    const prev = e.currentTarget.classList.contains('card__prev');
+    const category = Array.from(container.classList).find((name) => name !== 'card_carousel');
+
+    if (next && counter[category] < 3) {
+        counter[category]++;
+        container.style.transform = `translateX(-${counter[category] * 100}%)`;
+        return;
+    }
+    if (prev && counter[category] > 0) {
+        counter[category]--;
+        container.style.transform = `translateX(-${counter[category] * 100}%)`;
+        return;
+    }
 }

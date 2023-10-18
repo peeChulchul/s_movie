@@ -79,16 +79,19 @@
     margin-top: 20px;
     overflow: hidden;
     position: relative;
+    width: 100%;
 }
 
 .card_carousel {
     display: flex;
+    transition: all 0.3s linear;
 }
 
 .card {
     flex-shrink: 0;
+    margin-left: 4px;
     height: 350px;
-    width: 240px;
+    width: calc(1180px / 5);
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -109,6 +112,7 @@
     justify-content: center;
     align-items: center;
     background-color: var(--color-black);
+    z-index: 2;
 }
 .card__next:hover,
 .card__prev:hover {
@@ -118,6 +122,9 @@
 
 .card__next {
     right: 0;
+}
+.card__prev {
+    left: 4px;
 }
 
 /* footer */
