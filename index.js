@@ -1,9 +1,15 @@
+import { options, fetchApi } from './components/api.js';
+import { makeModal, exitModal, makeCards } from './components/global.js';
+import { submitFrom } from './components/submit.js';
 // Dom
 const $cardCarousels = document.querySelectorAll('.card_carousel');
 const $backDrop = document.querySelector('#back_drop');
 const $modal = document.querySelector('#modal');
 const $input = document.querySelector('.header__form__input');
 const $from = document.querySelector('.header__form');
+
+$backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
+$from.addEventListener('submit', (e) => submitFrom(e, $input, '../pages/search'));
 // counter
 const counter = {
     popular: 0,
@@ -11,15 +17,7 @@ const counter = {
     nowPlaying: 0,
 };
 
-// API
-
-const options = {
-    headers: {
-        accept: 'application/json',
-        Authorization:
-            'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOGM2MDMxNjBmN2IxY2NlMzk1YTE2NzUxMDY5MmZjZCIsInN1YiI6IjYzM2QzMDVlMjBlNmE1MDA4MTdhNWEzYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.rl3cm1gDAR9xtqQUJWGKlyGq-TYFmyIlcm6gHn5eNZU',
-    },
-};
+const categorys = ['popular', 'topRated', 'nowPlaying'];
 
 const Popular = fetch(`https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1`, options).then((data) =>
     data.json()
@@ -39,25 +37,20 @@ const NowPlaying = fetch(`https://api.themoviedb.org/3/movie/now_playing?languag
 
 (async function fetchMovies() {
     // 선언과 동시에 실행되는함수
-    // 함수내에서 사이트 동작시 필요한 이벤트리스너 장착
-    $backDrop.addEventListener('click', exitModal);
-    $from.addEventListener('submit', submitFrom);
 
     //await promis.all을 동기로 동작  내부에서는 api들을 비동기처리
-    const [popular, topRated, nowPlaying] = await Promise.all([Popular, TopRated, NowPlaying]);
-    const result = { popular, topRated, nowPlaying };
-
-    // 가져온 api를 통해 영화카드를 만드는 함수에 카테고리와 카테고리에 맞는 영화데이터들을 전달
-    const categorys = Object.keys(result);
-    categorys.forEach((category) => makeCard(category, result[category]));
+    const movies = await fetchApi([Popular, TopRated, NowPlaying], categorys);
+    movies.forEach((movie) => makeCarousels(movie));
 })();
 
-function makeCard(category, movies) {
+function makeCarousels(movies) {
+    console.log(movies);
     // 클래스명을 통해 카테고리와 일치하는 클래스명을 가진 html요소를 찾는다.
-    const container = Array.from($cardCarousels).find((cardCarousel) => cardCarousel.classList.contains(category));
+    const container = Array.from($cardCarousels).find((cardCarousel) =>
+        cardCarousel.classList.contains(movies.category)
+    );
     const { results } = movies;
 
-    console.log(container);
     // create 및 add 및 append....
     const next = document.createElement('button');
     const nextArrow = document.createElement('i');
@@ -80,14 +73,16 @@ function makeCard(category, movies) {
     next.addEventListener('click', (e) => onClickCardNav(e, container));
     prev.addEventListener('click', (e) => onClickCardNav(e, container));
 
+    // 로직 분리 필요
     results.forEach((movie) => {
         // 영화의 수만큼 카드를 만들어서 어펜드 시켜준다 추가로 카드 클릭시 일어날 이벤트도 등록
-        const card = document.createElement('div');
-        card.classList.add('card');
-        card.id = movie.id;
-        card.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`;
-        container.appendChild(card);
-        card.addEventListener('click', (e) => makeModal(e, movie));
+        makeCards(movie, container, (e) => makeModal(e, movie, $backDrop, $modal));
+        // const card = document.createElement('div');
+        // card.classList.add('card');
+        // card.id = movie.id;
+        // card.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`;
+        // container.appendChild(card);
+        // card.addEventListener('click', (e) => makeModal(e, movie, $backDrop, $modal));
     });
 }
 
@@ -112,56 +107,3 @@ function onClickCardNav(e, container) {
         return;
     }
 }
-
-function makeModal(e, movie) {
-    // 이전페이지 및 다음페이지 없을싯 버튼에 상태를 변경해주는거 추가해야함
-
-    // 영화카드 클릭시 실행되는 함수로 백드롭과 모달을 엑티브 시켜주며 모달안에 인자로받은 영화에대한 정보를 담아준다.
-    $backDrop.classList.add('active');
-    $modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    const modalHtml = `<h1 class="modal__title">
-    ${movie.title}(${movie.release_date.split('-')[0]})
-    <span
-        style="
-            text-align: center;
-            display: inline-block;
-            background-color: white;
-            padding:2px 4px;
-            color: black;
-            font-weight: bold;
-            font-size: 18px;
-            border-radius: 4px;
-        "
-        >${movie.vote_average}</span
-    >
-</h1>
-<p>
-   ${movie.overview}
-</p>
-<div
-    class="modal__bg"
-    style="background-image: url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')"
-></div>`;
-
-    $modal.innerHTML = modalHtml;
-}
-
-function exitModal() {
-    // 모달과 백드롭을 사라지게해주는 함수이다.
-    $backDrop.classList.remove('active');
-    $modal.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-async function submitFrom(e) {
-    // 서브밋시 자동 새로고침을 막기위한 이벤트 기본동작정지
-    e.preventDefault();
-    const value = $input.value;
-    localStorage.setItem('q', value);
-    return (location.href = '../search');
-
-    // 필요기능 input의 벨류를 search.html에 전달해서 검색값을 보여줘야함...
-}
-
-export { submitFrom, makeModal, options, exitModal };

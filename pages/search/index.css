@@ -1,1 +1,25 @@
 @import url(../../global.css);
+/* main */
+#main {
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+/* grid */
+.card_container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+}
+
+.card {
+    flex-shrink: 0;
+    height: 350px;
+    width: 100%;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 30px;
+    cursor: pointer;
+}
