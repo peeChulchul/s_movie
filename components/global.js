@@ -2,7 +2,6 @@ function makeModal(e, movie, backDrop, modal) {
     // 이전페이지 및 다음페이지 없을시 버튼에 상태를 변경해주는거 추가해야함
 
     // 영화카드 클릭시 실행되는 함수로 백드롭과 모달을 엑티브 시켜주며 모달안에 인자로받은 영화에대한 정보를 담아준다.
-    const idBtn = document.createElement('button');
     backDrop.classList.add('active');
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -36,8 +35,6 @@ style="
    ${movie.overview}
 </p>
 </div>
-
-
 `;
 
     modal.innerHTML = modalHtml;

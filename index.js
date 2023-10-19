@@ -8,7 +8,7 @@ const $modal = document.querySelector('#modal');
 const $input = document.querySelector('.header__form__input');
 const $from = document.querySelector('.header__form');
 
-const searchHtml = '../pages/search/index.html';
+const searchHtml = '../pages/search/search.html';
 $backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
 $from.addEventListener('submit', (e) => submitFrom(e, $input, searchHtml));
 // counter
