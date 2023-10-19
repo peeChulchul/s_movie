@@ -131,37 +131,38 @@
 
 /* backdrop */
 #back_drop {
-    display: none;
     position: fixed;
     background-color: black;
     height: 100%;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 3;
-    opacity: 0.8;
     cursor: pointer;
+    transition: all 0.3s ease-out;
+    opacity: 0;
+    z-index: -1;
 }
 #back_drop.active {
-    display: block;
+    z-index: 3;
+    opacity: 0.8;
 }
 
 /* modal */
 
 #modal {
     position: fixed;
-    top: 50%;
     left: 50%;
     background-color: var(--color-black);
     z-index: 4;
     width: 50%;
     height: 80%;
-    transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%) scale(0%);
     color: var(--color-accent);
-    display: none;
+    transition: all 0.2s linear;
+    top: 50%;
 }
 #modal.active {
-    display: block;
+    transform: translateY(-50%) translateX(-50%) scale(100%);
 }
 
 .modal__bg {
