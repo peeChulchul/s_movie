@@ -1,7 +1,5 @@
 // Dom
 const $cardCarousels = document.querySelectorAll('.card_carousel');
-const $cardNext = document.querySelectorAll('.card__next');
-const $cardPrev = document.querySelectorAll('.card__prev');
 const $backDrop = document.querySelector('#back_drop');
 const $modal = document.querySelector('#modal');
 const $input = document.querySelector('.header__form__input');
@@ -15,7 +13,7 @@ const counter = {
 
 // API
 
-export const options = {
+const options = {
     headers: {
         accept: 'application/json',
         Authorization:
@@ -59,6 +57,7 @@ function makeCard(category, movies) {
     const container = Array.from($cardCarousels).find((cardCarousel) => cardCarousel.classList.contains(category));
     const { results } = movies;
 
+    console.log(container);
     // create 및 add 및 append....
     const next = document.createElement('button');
     const nextArrow = document.createElement('i');
@@ -114,7 +113,7 @@ function onClickCardNav(e, container) {
     }
 }
 
-export function makeModal(e, movie) {
+function makeModal(e, movie) {
     // 이전페이지 및 다음페이지 없을싯 버튼에 상태를 변경해주는거 추가해야함
 
     // 영화카드 클릭시 실행되는 함수로 백드롭과 모달을 엑티브 시켜주며 모달안에 인자로받은 영화에대한 정보를 담아준다.
@@ -148,19 +147,21 @@ export function makeModal(e, movie) {
     $modal.innerHTML = modalHtml;
 }
 
-export function exitModal() {
+function exitModal() {
     // 모달과 백드롭을 사라지게해주는 함수이다.
     $backDrop.classList.remove('active');
     $modal.classList.remove('active');
     document.body.style.overflow = '';
 }
 
-export async function submitFrom(e) {
+async function submitFrom(e) {
     // 서브밋시 자동 새로고침을 막기위한 이벤트 기본동작정지
     e.preventDefault();
     const value = $input.value;
     localStorage.setItem('q', value);
-    return (location.href = 'search.html');
+    return (location.href = '../search');
 
     // 필요기능 input의 벨류를 search.html에 전달해서 검색값을 보여줘야함...
 }
+
+export { submitFrom, makeModal, options, exitModal };
