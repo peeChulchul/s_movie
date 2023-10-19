@@ -9,7 +9,7 @@ const $input = document.querySelector('.header__form__input');
 const $from = document.querySelector('.header__form');
 
 $backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
-$from.addEventListener('submit', (e) => submitFrom(e, $input, '../pages/search'));
+$from.addEventListener('submit', (e) => submitFrom(e, $input, '../pages/search/index.html'));
 // counter
 const counter = {
     popular: 0,
