@@ -330,6 +330,9 @@ body {
     #header {
         padding: 0px 40px;
     }
+    #modal {
+        width: 55%;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -338,5 +341,9 @@ body {
     }
     .header__form__input {
         min-width: 0px;
+    }
+    #modal {
+        width: 80%;
+        height: 75%;
     }
 }

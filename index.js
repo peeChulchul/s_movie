@@ -8,8 +8,9 @@ const $modal = document.querySelector('#modal');
 const $input = document.querySelector('.header__form__input');
 const $from = document.querySelector('.header__form');
 
+const searchHtml = '../pages/search/index.html';
 $backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
-$from.addEventListener('submit', (e) => submitFrom(e, $input, '../pages/search/index.html'));
+$from.addEventListener('submit', (e) => submitFrom(e, $input, searchHtml));
 // counter
 const counter = {
     popular: 0,

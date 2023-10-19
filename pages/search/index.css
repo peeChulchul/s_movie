@@ -33,4 +33,31 @@
     #main {
         padding: 0px 40px;
     }
+    .card_container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .card {
+        height: 400px;
+    }
+}
+
+@media screen and (max-width: 988px) {
+    .card_container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .card {
+        height: 450px;
+    }
+}
+
+@media screen and (max-width: 775px) {
+    .card_container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+}
+@media screen and (max-width: 555px) {
+    .card_container {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
