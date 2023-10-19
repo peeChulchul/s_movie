@@ -38,6 +38,10 @@
     background-repeat: no-repeat;
     border-radius: 30px;
     cursor: pointer;
+    transition: all 0.3s linear;
+}
+.card:hover {
+    transform: scale(95%);
 }
 
 .card__next,
@@ -67,4 +71,11 @@
 }
 .card__prev {
     left: 4px;
+    display: none;
+}
+
+@media screen and (max-width: 1200px) {
+    #main {
+        padding: 0px 40px;
+    }
 }

@@ -128,6 +128,10 @@ button {
     background-color: unset;
     cursor: pointer;
 }
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
 * {
     box-sizing: border-box;
@@ -240,19 +244,42 @@ body {
 /* modal */
 
 #modal {
+    display: flex;
+    flex-direction: column;
     position: fixed;
     left: 50%;
     background-color: var(--color-black);
     z-index: 4;
-    width: 50%;
-    height: 80%;
+    width: 40%;
+    height: 70%;
     transform: translateY(-50%) translateX(-50%) scale(0%);
     color: var(--color-accent);
     transition: all 0.2s linear;
     top: 50%;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    overflow: hidden;
 }
 #modal.active {
     transform: translateY(-50%) translateX(-50%) scale(100%);
+}
+
+.modal__top {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: end;
+    padding: 0 8px;
+    padding-bottom: 16px;
+    color: var(--color-text);
+}
+.modal__buttom {
+    height: 100%;
+    padding: 0 8px;
+    padding-top: 16px;
+    line-height: 150%;
+    filter: brightness(120%);
+    background-color: var(--color-black);
 }
 
 .modal__bg {
@@ -264,7 +291,10 @@ body {
     position: absolute;
     top: 0;
     bottom: 0;
-    opacity: 0.3;
+    left: 0;
+    right: 0;
+    opacity: 0.7;
+    z-index: -1;
 }
 
 .modal__title {
@@ -294,4 +324,19 @@ body {
     color: var(--color-accent);
     font-size: 30px;
     font-weight: bold;
+}
+
+@media screen and (max-width: 1200px) {
+    #header {
+        padding: 0px 40px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #header {
+        padding: 0px 16px;
+    }
+    .header__form__input {
+        min-width: 0px;
+    }
 }

@@ -13,7 +13,7 @@ $backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
 $from.addEventListener('submit', (e) => submitFrom(e, $input, './'));
 
 const q = sessionStorage.getItem('q');
-
+$input.value = q;
 const searchMovies = fetch(
     `https://api.themoviedb.org/3/search/movie?query=${q}&include_adult=false&language=ko-KR&page=1`,
     options

@@ -5,7 +5,12 @@ function makeModal(e, movie, backDrop, modal) {
     backDrop.classList.add('active');
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    const modalHtml = `<h1 class="modal__title">
+    const modalHtml = `<div class="modal__top">
+    <div
+    class="modal__bg"
+    style="background-image: url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')"
+></div>
+    <h1 class="modal__title">
     ${movie.title}(${movie.release_date.split('-')[0]})
     <span
         style="
@@ -18,16 +23,18 @@ function makeModal(e, movie, backDrop, modal) {
             font-size: 18px;
             border-radius: 4px;
         "
-        >${movie.vote_average}</span
+        >${Math.round(movie.vote_average * 10) / 10}</span
     >
 </h1>
+</div>
+<div class="modal__buttom">
 <p>
    ${movie.overview}
 </p>
-<div
-    class="modal__bg"
-    style="background-image: url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')"
-></div>`;
+</div>
+
+
+`;
 
     modal.innerHTML = modalHtml;
 }
@@ -40,7 +47,6 @@ function exitModal(backDrop, modal) {
 }
 
 function makeCards(movie, container, modalfn) {
-    console.log(movie);
     const card = document.createElement('div');
     card.classList.add('card');
     card.id = movie.id;

@@ -29,12 +29,6 @@ const NowPlaying = fetch(`https://api.themoviedb.org/3/movie/now_playing?languag
     data.json()
 );
 
-// 모달 생성시 영화의 상세데이터를 id를 파람으로 줘서 가져옴..
-// fetch('https://api.themoviedb.org/3/movie/575264?language=ko-KR', options)
-//   .then(response => response.json())
-//   .then(response => console.log(response))
-//   .catch(err => console.error(err));
-
 (async function fetchMovies() {
     // 선언과 동시에 실행되는함수
 
@@ -44,7 +38,6 @@ const NowPlaying = fetch(`https://api.themoviedb.org/3/movie/now_playing?languag
 })();
 
 function makeCarousels(movies) {
-    console.log(movies);
     // 클래스명을 통해 카테고리와 일치하는 클래스명을 가진 html요소를 찾는다.
     const container = Array.from($cardCarousels).find((cardCarousel) =>
         cardCarousel.classList.contains(movies.category)
@@ -77,12 +70,6 @@ function makeCarousels(movies) {
     results.forEach((movie) => {
         // 영화의 수만큼 카드를 만들어서 어펜드 시켜준다 추가로 카드 클릭시 일어날 이벤트도 등록
         makeCards(movie, container, (e) => makeModal(e, movie, $backDrop, $modal));
-        // const card = document.createElement('div');
-        // card.classList.add('card');
-        // card.id = movie.id;
-        // card.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`;
-        // container.appendChild(card);
-        // card.addEventListener('click', (e) => makeModal(e, movie, $backDrop, $modal));
     });
 }
 
@@ -99,11 +86,15 @@ function onClickCardNav(e, container) {
     if (next && counter[category] < 3) {
         counter[category]++;
         container.style.transform = `translateX(-${counter[category] * 100}%)`;
+        e.currentTarget.parentNode.children[0].style.display = 'block';
+        e.currentTarget.style.display = counter[category] === 3 ? 'none' : 'block';
         return;
     }
     if (prev && counter[category] > 0) {
         counter[category]--;
         container.style.transform = `translateX(-${counter[category] * 100}%)`;
+        e.currentTarget.parentNode.children[1].style.display = 'block';
+        e.currentTarget.style.display = counter[category] === 0 ? 'none' : 'block';
         return;
     }
 }
