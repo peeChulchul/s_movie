@@ -2,6 +2,8 @@
 const $cardCarousels = document.querySelectorAll('.card_carousel');
 const $cardNext = document.querySelectorAll('.card__next');
 const $cardPrev = document.querySelectorAll('.card__prev');
+const $backDrop = document.querySelector('#back_drop');
+const $modal = document.querySelector('#modal');
 
 // counter
 const counter = {
@@ -29,10 +31,14 @@ const TopRated = fetch(`https://api.themoviedb.org/3/movie/top_rated?language=ko
 const NowPlaying = fetch(`https://api.themoviedb.org/3/movie/now_playing?language=ko-KR&page=1`, options).then((data) =>
     data.json()
 );
+// fetch('https://api.themoviedb.org/3/movie/575264?language=ko-KR', options)
+//   .then(response => response.json())
+//   .then(response => console.log(response))
+//   .catch(err => console.error(err));
 
 (async function fetchMovies() {
     const [popular, topRated, nowPlaying] = await Promise.all([Popular, TopRated, NowPlaying]);
-
+    $backDrop.addEventListener('click', exitModal);
     const result = { popular, topRated, nowPlaying };
 
     const categorys = Object.keys(result);
@@ -68,13 +74,16 @@ function makeCard(category, movies) {
     results.forEach((movie) => {
         const card = document.createElement('div');
         card.classList.add('card');
+        card.id = movie.id;
         card.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`;
         container.appendChild(card);
+        card.addEventListener('click', (e) => makeModal(e, movie));
     });
     console.log(container);
     console.log(movies);
 }
 
+// 캐러셀 클릭이벤트
 function onClickCardNav(e, container) {
     const next = e.currentTarget.classList.contains('card__next');
     const prev = e.currentTarget.classList.contains('card__prev');
@@ -90,4 +99,40 @@ function onClickCardNav(e, container) {
         container.style.transform = `translateX(-${counter[category] * 100}%)`;
         return;
     }
+}
+
+function makeModal(e, movie) {
+    $backDrop.classList.add('active');
+    $modal.classList.add('active');
+
+    const modalHtml = `<h1 class="modal__title">
+    ${movie.title}(${movie.release_date.split('-')[0]})
+    <span
+        style="
+            text-align: center;
+            display: inline-block;
+            background-color: white;
+            padding:2px 4px;
+            color: black;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 4px;
+        "
+        >${movie.vote_average}</span
+    >
+</h1>
+<p>
+   ${movie.overview}
+</p>
+<div
+    class="modal__bg"
+    style="background-image: url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')"
+></div>`;
+
+    $modal.innerHTML = modalHtml;
+}
+
+function exitModal() {
+    $backDrop.classList.remove('active');
+    $modal.classList.remove('active');
 }
