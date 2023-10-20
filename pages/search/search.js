@@ -92,9 +92,11 @@ function onClickAddMovie() {
 function miniSubmit(e) {
     e.preventDefault();
     const cards = document.querySelectorAll('.card');
-    const inputValue = $miniFromInput.value;
+    const inputValue = $miniFromInput.value.toUpperCase();
     cards.forEach((card) => {
-        const data = card.dataset.title;
+        const data = card.dataset.title.toUpperCase();
+        console.log(data);
+        console.log(inputValue);
         const viewCard = data.includes(inputValue);
         if (!viewCard) {
             card.style.display = 'none';
