@@ -3,13 +3,25 @@
 #main {
     max-width: 1200px;
     margin: 0 auto;
+    padding-top: 70px;
 }
 
-.from_container {
+.fixed_box {
+    position: fixed;
+    top: 70px;
     width: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--color-primary);
+    z-index: 1;
+}
+.from_container {
+    max-width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin: 0 auto;
+    height: 60px;
 }
 .mini_from {
     display: flex;

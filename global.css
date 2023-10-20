@@ -261,7 +261,6 @@ body.dark .header__mode_icon.sun {
     left: 0;
     right: 0;
     cursor: pointer;
-    transition: all 0.3s ease-out;
     opacity: 0;
     z-index: -1;
 }

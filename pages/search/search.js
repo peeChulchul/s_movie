@@ -95,8 +95,6 @@ function miniSubmit(e) {
     const inputValue = $miniFromInput.value.toUpperCase();
     cards.forEach((card) => {
         const data = card.dataset.title.toUpperCase();
-        console.log(data);
-        console.log(inputValue);
         const viewCard = data.includes(inputValue);
         if (!viewCard) {
             card.style.display = 'none';
