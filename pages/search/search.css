@@ -5,6 +5,33 @@
     margin: 0 auto;
 }
 
+.from_container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mini_from {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.mini_from__input {
+    height: 30px;
+    padding: 8px 10px;
+    padding-right: 30px;
+    min-width: 20ch;
+    border-radius: 4px;
+    border: none;
+    outline-color: var(--color-accent-variant);
+}
+.mini_from__button {
+    position: absolute;
+    right: 0px;
+    height: 30px;
+    width: 30px;
+}
+
 .search__title {
     font-size: 25px;
     font-weight: bold;

@@ -61,6 +61,7 @@ function makeCards(movie, container, modalfn) {
     const card = document.createElement('div');
     card.classList.add('card');
     card.id = movie.id;
+    card.dataset.title = movie.title;
     card.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`;
     container.appendChild(card);
     card.addEventListener('click', modalfn);

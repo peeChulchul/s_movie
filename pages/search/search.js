@@ -15,8 +15,12 @@ const $main = document.querySelector('#main');
 const $title = document.createElement('h1');
 const $btnDay = document.querySelector('.header__mode_icon.sun');
 const $btnNight = document.querySelector('.header__mode_icon.moon');
+const $fromContainer = document.querySelector('.from_container');
+const $miniFrom = document.querySelector('.mini_from');
+const $miniFromInput = document.querySelector('.mini_from__input');
 toggleDisplay($btnDay);
 toggleDisplay($btnNight);
+$miniFrom.addEventListener('submit', miniSubmit);
 $backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
 $from.addEventListener('submit', (e) => submitFrom(e, $input));
 $addMovieBtn.addEventListener('click', onClickAddMovie);
@@ -33,7 +37,7 @@ $input.value = q;
 // Dom요소인 $title에 택스트와 클래스를추가해주고 $main의 맨앞으로 배치해준다.
 $title.textContent = `'${q}' 검색결과 `;
 $title.classList.add('search__title');
-$main.prepend($title);
+$fromContainer.prepend($title);
 //
 
 // 데이터로 받아와야할 Promise다.
@@ -83,4 +87,19 @@ function onClickAddMovie() {
         options
     ).then((promise) => promise.json());
     return initFn(addMovieList);
+}
+
+function miniSubmit(e) {
+    e.preventDefault();
+    const cards = document.querySelectorAll('.card');
+    const inputValue = $miniFromInput.value;
+    cards.forEach((card) => {
+        const data = card.dataset.title;
+        const viewCard = data.includes(inputValue);
+        if (!viewCard) {
+            card.style.display = 'none';
+        } else {
+            card.style.display = 'block';
+        }
+    });
 }
