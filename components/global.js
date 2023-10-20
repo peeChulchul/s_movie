@@ -1,4 +1,7 @@
+// 공통적으로 쓰이는 함수들을 모듈화 하였다.
+
 function exitModal(backDrop, modal) {
+    // backDrop및 modal 은 Dom요소이다.
     // 모달과 백드롭을 사라지게해주는 함수이다.
     backDrop.classList.remove('active');
     modal.classList.remove('active');
@@ -6,7 +9,7 @@ function exitModal(backDrop, modal) {
 }
 
 function makeModal(e, movie, backDrop, modal) {
-    // 이전페이지 및 다음페이지 없을시 버튼에 상태를 변경해주는거 추가해야함
+    // backDrop,modal Dom요소 movie는 영화이다.
 
     // 영화카드 클릭시 실행되는 함수로 백드롭과 모달을 엑티브 시켜주며 모달안에 인자로받은 영화에대한 정보를 담아준다.
     backDrop.classList.add('active');
@@ -48,9 +51,13 @@ function makeModal(e, movie, backDrop, modal) {
 }
 
 function makeCards(movie, container, modalfn) {
+    // movie는 영화정보이다, container는 Dom요소 , modalfn은 실질적으로 위에 선언된 makeModal함수이다.
     if (movie.backdrop_path === null) {
         return;
     }
+    // 데이터중에 이미지가없는 데이터가있길래 아예 제거해버렸다.
+
+    // 카드를 만들고 해당 요소에 스타일 이벤트 클래스를 부여하고 container에 어펜드시킨다.
     const card = document.createElement('div');
     card.classList.add('card');
     card.id = movie.id;
@@ -60,6 +67,9 @@ function makeCards(movie, container, modalfn) {
 }
 
 function toggleDisplay(button) {
+    // button은 Dom요소이다.
+
+    // 버튼에 클릭이벤트를 부착하였다. 현재모드를 세션스토리지에 저장시켰다.
     button.addEventListener('click', () => {
         document.body.classList.toggle('dark');
         const isDark = document.body.classList.contains('dark');
@@ -68,6 +78,7 @@ function toggleDisplay(button) {
 }
 
 function initDisplay() {
+    // 화면출력시 시작 세션스토리지에 저장된 디스플레이모드를 확인하여 바디에 맞는 클레스명을 부여하도록하였다.
     const display = sessionStorage.getItem('display');
     display === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark');
 }

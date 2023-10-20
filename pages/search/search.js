@@ -1,7 +1,8 @@
+// 임폴트
 import { makeModal, exitModal, makeCards, toggleDisplay, initDisplay } from '../../components/global.js';
 import { options, fetchApi } from '../../components/api.js';
 import { submitFrom } from '../../components/submit.js';
-// dom
+// dom요소 및 이벤트 부착
 
 const $backDrop = document.querySelector('#back_drop');
 const $modal = document.querySelector('#modal');
@@ -16,41 +17,50 @@ const $btnDay = document.querySelector('.header__mode_icon.sun');
 const $btnNight = document.querySelector('.header__mode_icon.moon');
 toggleDisplay($btnDay);
 toggleDisplay($btnNight);
-// event
 $backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
 $from.addEventListener('submit', (e) => submitFrom(e, $input));
 $addMovieBtn.addEventListener('click', onClickAddMovie);
 $scrollUp.addEventListener('click', () => {
     window.scrollTo(0, 0);
 });
-window.onload = () => fetchMovies(searchMovies);
+window.onload = () => initFn(searchMovies);
 
+// q는 세션에 저장해둔 검색어이다. 페이지는 기본 1페이지로 저장해두었다.
 const q = sessionStorage.getItem('q');
 let page = 1;
 $input.value = q;
 
+// Dom요소인 $title에 택스트와 클래스를추가해주고 $main의 맨앞으로 배치해준다.
+$title.textContent = `'${q}' 검색결과 `;
+$title.classList.add('search__title');
+$main.prepend($title);
+//
+
+// 데이터로 받아와야할 Promise다.
 const searchMovies = fetch(
     `https://api.themoviedb.org/3/search/movie?query=${q}&include_adult=false&language=ko-KR&page=${page}`,
     options
 ).then((promise) => promise.json());
 
-async function fetchMovies(promise) {
+async function initFn(promise) {
     initDisplay();
+
+    // 모듈에서 가져온 fetchapi를 통해 데이터가 가져온다.
     const searchJson = await fetchApi([promise]);
-    //
-    $title.textContent = `'${q}' 검색결과 `;
-    $title.classList.add('search__title');
-    $main.prepend($title);
-    //
+
+    // 결과값이 없을수도없기때문에 결과값이 없을경우를 empty로 선언해주었다.
     const { results } = searchJson;
     const empty = results.length <= 0;
 
+    // $addMovieBtn은 다음페이지의 데이터를 불러오는 버튼으로 현재페이지가 마지막페이지인경우 display:none으로 만들어줬다.
     if (page === searchJson.total_pages) {
         $addMovieBtn.style.display = 'none';
     } else {
         $addMovieBtn.style.display = 'block';
     }
 
+    // 결과값이 없는 경우 '검색결과가 존재하지않습니다.'를 출력시켜주었다.
+    // 결과가 있을경우 모듈에서 가져온 makeCards를 통해 결과수만큼의 카드를 만들어주었다.
     if (empty) {
         const emptyText = document.createElement('h1');
         emptyText.textContent = '검색결과가 존재하지않습니다.';
@@ -64,12 +74,13 @@ async function fetchMovies(promise) {
     }
 }
 
+// 데이터를 더 가져오는 함수이다.
+// 페이지를 증가시키며 위에선언된 fetchMovies에 가져와야할 페이지의 데이터가 담긴 promise를 전달하여 해당 값을 가지고 카드를 만들게된다.
 function onClickAddMovie() {
     page++;
-    console.log(page);
     const addMovieList = fetch(
         `https://api.themoviedb.org/3/search/movie?query=${q}&include_adult=false&language=ko-KR&page=${page}`,
         options
     ).then((promise) => promise.json());
-    return fetchMovies(addMovieList);
+    return initFn(addMovieList);
 }
