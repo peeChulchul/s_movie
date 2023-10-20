@@ -32,7 +32,7 @@
     flex-shrink: 0;
     margin-left: 4px;
     height: 350px;
-    width: calc(1180px / 5);
+    width: calc((100% - 20px) / 5);
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -76,6 +76,23 @@
 
 @media screen and (max-width: 1200px) {
     #main {
-        padding: 0px 40px;
+        margin: 0px 40px;
+    }
+    .card {
+        width: calc((100% - 17px) / 4);
+    }
+}
+@media screen and (max-width: 768px) {
+    #main {
+        margin: 0px 16px;
+    }
+    .card {
+        width: calc((100% - 13px) / 3);
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .card {
+        width: calc((100% - 8px) / 2);
     }
 }

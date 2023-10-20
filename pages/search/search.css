@@ -29,6 +29,18 @@
     transform: scale(95%);
 }
 
+/* 더보기버튼 */
+.addMovie_btn {
+    width: 100%;
+    background-color: var(--color-accent-variant);
+    color: var(--color-accent);
+    filter: brightness(150%);
+    margin: 20px 0px;
+    border-radius: 16px;
+    padding: 20px 0px;
+}
+
+/* 미디어쿼리 */
 @media screen and (max-width: 1200px) {
     #main {
         padding: 0px 40px;

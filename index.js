@@ -8,15 +8,41 @@ const $modal = document.querySelector('#modal');
 const $input = document.querySelector('.header__form__input');
 const $from = document.querySelector('.header__form');
 
-const searchHtml = '../pages/search/search.html';
-$backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
-$from.addEventListener('submit', (e) => submitFrom(e, $input, searchHtml));
 // counter
 const counter = {
     popular: 0,
     topRated: 0,
     nowPlaying: 0,
 };
+
+let viewCard;
+const searchHtml = '../pages/search/search.html';
+$backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
+$from.addEventListener('submit', (e) => submitFrom(e, $input, searchHtml));
+window.addEventListener('resize', getOuterWidth);
+window.onload = fetchMovies;
+
+function getOuterWidth() {
+    viewCard = 5;
+    // Object.keys(counter).forEach((key, index) => {
+    //     counter[key] = 0;
+    //     $cardCarousels[index].style.transform = `translateX(0%)`;
+    // });
+
+    //
+    if (window.outerWidth <= 580) {
+        viewCard = 2;
+        return;
+    }
+    if (window.outerWidth <= 768) {
+        viewCard = 3;
+        return;
+    }
+    if (window.outerWidth <= 1200) {
+        viewCard = 4;
+        return;
+    }
+}
 
 const categorys = ['popular', 'topRated', 'nowPlaying'];
 
@@ -30,13 +56,14 @@ const NowPlaying = fetch(`https://api.themoviedb.org/3/movie/now_playing?languag
     data.json()
 );
 
-(async function fetchMovies() {
+async function fetchMovies() {
     // 선언과 동시에 실행되는함수
 
+    getOuterWidth();
     //await promis.all을 동기로 동작  내부에서는 api들을 비동기처리
     const movies = await fetchApi([Popular, TopRated, NowPlaying], categorys);
     movies.forEach((movie) => makeCarousels(movie));
-})();
+}
 
 function makeCarousels(movies) {
     // 클래스명을 통해 카테고리와 일치하는 클래스명을 가진 html요소를 찾는다.
@@ -81,14 +108,15 @@ function onClickCardNav(e, container) {
     const next = e.currentTarget.classList.contains('card__next');
     const prev = e.currentTarget.classList.contains('card__prev');
     const category = Array.from(container.classList).find((name) => name !== 'card_carousel');
+    const maxPage = Math.round(20 / viewCard);
 
     // 전역 변수로 만들어둔 객체 counter는 키로 카테고리명을 벨류로 카운터를 가지고있다.
     // 변수로 만들어둔 카테고리명과 같은 키를 통해 카운터를 찾고 카운터의 수에따라 다른 조건의 동작을 하도록 만들었다.
-    if (next && counter[category] < 3) {
+    if (next && counter[category] < maxPage) {
         counter[category]++;
         container.style.transform = `translateX(-${counter[category] * 100}%)`;
         e.currentTarget.parentNode.children[0].style.display = 'block';
-        e.currentTarget.style.display = counter[category] === 3 ? 'none' : 'block';
+        e.currentTarget.style.display = counter[category] === maxPage - 1 ? 'none' : 'block';
         return;
     }
     if (prev && counter[category] > 0) {
