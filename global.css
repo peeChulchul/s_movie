@@ -186,6 +186,10 @@ body {
     font-weight: bold;
 }
 
+.header__title:hover {
+    color: var(--color-accent-variant);
+}
+
 .header__nav {
     align-items: center;
     display: flex;
@@ -302,6 +306,19 @@ body {
     font-weight: bold;
 }
 
+.modal__exitBtn {
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    color: white;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 16px;
+}
+.modal__exitBtn:hover {
+    color: var(--color-red);
+}
+
 /* footer */
 
 #footer {
@@ -343,7 +360,7 @@ body {
         min-width: 0px;
     }
     #modal {
-        width: 80%;
-        height: 75%;
+        width: 100%;
+        height: 100%;
     }
 }

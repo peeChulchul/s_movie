@@ -5,12 +5,24 @@
     margin: 0 auto;
 }
 
+.search__title {
+    font-size: 25px;
+    font-weight: bold;
+    margin: 40px 0px;
+}
+
+.search__empty {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 40px 0px;
+}
+
 /* grid */
 .card_container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
-    margin: 40px 0px;
 }
 
 .card {
@@ -52,7 +64,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 3;
+    z-index: 2;
     background-color: var(--color-accent-variant);
     border-radius: 100%;
     color: var(--color-accent);

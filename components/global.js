@@ -1,3 +1,10 @@
+function exitModal(backDrop, modal) {
+    // 모달과 백드롭을 사라지게해주는 함수이다.
+    backDrop.classList.remove('active');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
 function makeModal(e, movie, backDrop, modal) {
     // 이전페이지 및 다음페이지 없을시 버튼에 상태를 변경해주는거 추가해야함
 
@@ -5,46 +12,39 @@ function makeModal(e, movie, backDrop, modal) {
     backDrop.classList.add('active');
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
-    const modalHtml = `<div class="modal__top">
-    <div
-    class="modal__bg"
-    style="background-image: url('https://image.tmdb.org/t/p/original/${movie.backdrop_path}')"
-></div>
-    <h1 class="modal__title">
-    ${movie.title}(${movie.release_date.split('-')[0]})
-  
-</h1>
-<span
-style="
-    margin:0px 6px;
-    text-align: center;
-    display: inline-block;
-    background-color: white;
-    padding:2px 4px;
-    color: black;
-    font-weight: bold;
-    font-size: 18px;
-    border-radius: 4px;
-"
->${Math.round(movie.vote_average * 10) / 10}</span
->
-<button style="color: white;" onClick="alert('영화 ID:' + ${movie.id})">ID</button>
-</div>
-<div class="modal__buttom">
-<p>
-   ${movie.overview}
-</p>
-</div>
+    const exitModalBtn = document.createElement('button');
+    const exitIcon = document.createElement('i');
+    exitIcon.classList.add('fa-solid');
+    exitIcon.classList.add('fa-x');
+    exitModalBtn.classList.add('modal__exitBtn');
+    exitModalBtn.append(exitIcon);
+    exitModalBtn.addEventListener('click', () => exitModal(backDrop, modal));
+
+    const modalHtml = `
+    <div class="modal__top">
+        <div class="modal__bg" style="background-image: url('https://image.tmdb.org/t/p/original/${
+            movie.backdrop_path
+        }')"></div>
+        <h1 class="modal__title">${movie.title}(${movie.release_date.split('-')[0]})</h1>
+        <span   style=" margin:0px 6px;
+                        text-align: center;
+                        display: inline-block;
+                        background-color: white;
+                        padding:2px 4px;
+                        color: black;
+                        font-weight: bold;
+                        font-size: 18px;
+                        border-radius: 4px;">
+                        ${Math.round(movie.vote_average * 10) / 10}</span>
+        <button style="color: white;" onClick="alert('영화 ID:' + ${movie.id})">ID</button>
+    </div>
+    <div class="modal__buttom">
+        <p>${movie.overview}</p>
+    </div>
 `;
 
     modal.innerHTML = modalHtml;
-}
-
-function exitModal(backDrop, modal) {
-    // 모달과 백드롭을 사라지게해주는 함수이다.
-    backDrop.classList.remove('active');
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
+    modal.append(exitModalBtn);
 }
 
 function makeCards(movie, container, modalfn) {

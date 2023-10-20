@@ -10,6 +10,8 @@ const $from = document.querySelector('.header__form');
 const $cardContainer = document.querySelector('.card_container');
 const $addMovieBtn = document.querySelector('.addMovie_btn');
 const $scrollUp = document.querySelector('.scroll_up');
+const $main = document.querySelector('#main');
+const $title = document.createElement('h1');
 // event
 $backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
 $from.addEventListener('submit', (e) => submitFrom(e, $input));
@@ -30,17 +32,31 @@ const searchMovies = fetch(
 
 async function fetchMovies(promise) {
     const searchJson = await fetchApi([promise]);
-
+    //
+    $title.textContent = `'${q}' 검색결과 `;
+    $title.classList.add('search__title');
+    $main.prepend($title);
+    //
     const { results } = searchJson;
+    const empty = results.length <= 0;
+
     if (page === searchJson.total_pages) {
         $addMovieBtn.style.display = 'none';
     } else {
         $addMovieBtn.style.display = 'block';
     }
 
-    results.forEach((result) => {
-        makeCards(result, $cardContainer, (e) => makeModal(e, result, $backDrop, $modal));
-    });
+    if (empty) {
+        const emptyText = document.createElement('h1');
+        emptyText.textContent = '검색결과가 존재하지않습니다.';
+        emptyText.classList.add('search__empty');
+        console.log(emptyText);
+        $main.append(emptyText);
+    } else {
+        results.forEach((result) => {
+            makeCards(result, $cardContainer, (e) => makeModal(e, result, $backDrop, $modal));
+        });
+    }
 }
 
 function onClickAddMovie() {
