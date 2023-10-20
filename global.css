@@ -373,6 +373,9 @@ body.dark .header__mode_icon.sun {
     #header {
         padding: 0px 40px;
     }
+    .header__title {
+        font-size: 25px;
+    }
     #modal {
         width: 55%;
     }
