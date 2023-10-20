@@ -10,7 +10,7 @@ const $from = document.querySelector('.header__form');
 const $cardContainer = document.querySelector('.card_container');
 // event
 $backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
-$from.addEventListener('submit', (e) => submitFrom(e, $input, './'));
+$from.addEventListener('submit', (e) => submitFrom(e, $input));
 
 const q = sessionStorage.getItem('q');
 $input.value = q;

@@ -3,7 +3,12 @@ async function submitFrom(e, input, html) {
     e.preventDefault();
     const value = input.value;
     sessionStorage.setItem('q', value);
-    return (location.href = html);
+    if (html) {
+        location.href = html;
+        return;
+    } else {
+        window.location.reload();
+    }
 }
 
 export { submitFrom };
