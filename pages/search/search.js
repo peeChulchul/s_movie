@@ -99,9 +99,15 @@ function miniSubmit(e) {
         console.log(inputValue);
         const viewCard = data.includes(inputValue);
         if (!viewCard) {
-            card.style.display = 'none';
+            card.style.position = 'fixed';
+            card.style.opacity = '0';
+            card.style.top = '-100%';
+            card.style.transform = 'scale(0)';
         } else {
-            card.style.display = 'block';
+            card.style.position = '';
+            card.style.top = '';
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
         }
     });
 }
