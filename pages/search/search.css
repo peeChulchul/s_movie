@@ -44,8 +44,7 @@
 .addMovie_btn {
     width: 100%;
     background-color: var(--color-accent-variant);
-    color: var(--color-accent);
-    filter: brightness(150%);
+    color: var(--color-white);
     margin: 20px 0px;
     border-radius: 16px;
     padding: 20px 0px;
@@ -67,9 +66,8 @@
     z-index: 2;
     background-color: var(--color-accent-variant);
     border-radius: 100%;
-    color: var(--color-accent);
+    color: var(--color-white);
     padding: 5px;
-    filter: brightness(150%);
     cursor: pointer;
 }
 .scroll_up:hover {

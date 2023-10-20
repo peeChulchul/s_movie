@@ -1,4 +1,4 @@
-import { makeModal, exitModal, makeCards } from '../../components/global.js';
+import { makeModal, exitModal, makeCards, toggleDisplay, initDisplay } from '../../components/global.js';
 import { options, fetchApi } from '../../components/api.js';
 import { submitFrom } from '../../components/submit.js';
 // dom
@@ -12,6 +12,10 @@ const $addMovieBtn = document.querySelector('.addMovie_btn');
 const $scrollUp = document.querySelector('.scroll_up');
 const $main = document.querySelector('#main');
 const $title = document.createElement('h1');
+const $btnDay = document.querySelector('.header__mode_icon.sun');
+const $btnNight = document.querySelector('.header__mode_icon.moon');
+toggleDisplay($btnDay);
+toggleDisplay($btnNight);
 // event
 $backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
 $from.addEventListener('submit', (e) => submitFrom(e, $input));
@@ -31,6 +35,7 @@ const searchMovies = fetch(
 ).then((promise) => promise.json());
 
 async function fetchMovies(promise) {
+    initDisplay();
     const searchJson = await fetchApi([promise]);
     //
     $title.textContent = `'${q}' 검색결과 `;

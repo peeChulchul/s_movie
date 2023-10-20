@@ -48,6 +48,9 @@ function makeModal(e, movie, backDrop, modal) {
 }
 
 function makeCards(movie, container, modalfn) {
+    if (movie.backdrop_path === null) {
+        return;
+    }
     const card = document.createElement('div');
     card.classList.add('card');
     card.id = movie.id;
@@ -56,4 +59,17 @@ function makeCards(movie, container, modalfn) {
     card.addEventListener('click', modalfn);
 }
 
-export { makeModal, exitModal, makeCards };
+function toggleDisplay(button) {
+    button.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        const isDark = document.body.classList.contains('dark');
+        isDark ? sessionStorage.setItem('display', 'dark') : sessionStorage.setItem('display', 'light');
+    });
+}
+
+function initDisplay() {
+    const display = sessionStorage.getItem('display');
+    display === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark');
+}
+
+export { makeModal, exitModal, makeCards, toggleDisplay, initDisplay };

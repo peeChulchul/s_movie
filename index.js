@@ -1,5 +1,5 @@
 import { options, fetchApi } from './components/api.js';
-import { makeModal, exitModal, makeCards } from './components/global.js';
+import { makeModal, exitModal, makeCards, toggleDisplay, initDisplay } from './components/global.js';
 import { submitFrom } from './components/submit.js';
 // Dom
 const $cardCarousels = document.querySelectorAll('.card_carousel');
@@ -7,6 +7,8 @@ const $backDrop = document.querySelector('#back_drop');
 const $modal = document.querySelector('#modal');
 const $input = document.querySelector('.header__form__input');
 const $from = document.querySelector('.header__form');
+const $btnDay = document.querySelector('.header__mode_icon.sun');
+const $btnNight = document.querySelector('.header__mode_icon.moon');
 
 // counter
 const counter = {
@@ -14,7 +16,8 @@ const counter = {
     topRated: 0,
     nowPlaying: 0,
 };
-
+toggleDisplay($btnDay);
+toggleDisplay($btnNight);
 let viewCard;
 const searchHtml = '../pages/search/search.html';
 $backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
@@ -58,7 +61,7 @@ const NowPlaying = fetch(`https://api.themoviedb.org/3/movie/now_playing?languag
 
 async function fetchMovies() {
     // 선언과 동시에 실행되는함수
-
+    initDisplay();
     getOuterWidth();
     //await promis.all을 동기로 동작  내부에서는 api들을 비동기처리
     const movies = await fetchApi([Popular, TopRated, NowPlaying], categorys);
