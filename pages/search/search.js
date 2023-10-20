@@ -9,10 +9,14 @@ const $input = document.querySelector('.header__form__input');
 const $from = document.querySelector('.header__form');
 const $cardContainer = document.querySelector('.card_container');
 const $addMovieBtn = document.querySelector('.addMovie_btn');
+const $scrollUp = document.querySelector('.scroll_up');
 // event
 $backDrop.addEventListener('click', () => exitModal($backDrop, $modal));
 $from.addEventListener('submit', (e) => submitFrom(e, $input));
 $addMovieBtn.addEventListener('click', onClickAddMovie);
+$scrollUp.addEventListener('click', () => {
+    window.scrollTo(0, 0);
+});
 window.onload = () => fetchMovies(searchMovies);
 
 const q = sessionStorage.getItem('q');
@@ -30,6 +34,8 @@ async function fetchMovies(promise) {
     const { results } = searchJson;
     if (page === searchJson.total_pages) {
         $addMovieBtn.style.display = 'none';
+    } else {
+        $addMovieBtn.style.display = 'block';
     }
 
     results.forEach((result) => {

@@ -3,7 +3,6 @@
 #main {
     max-width: 1200px;
     margin: 0 auto;
-    min-height: 100vh;
 }
 
 /* grid */
@@ -38,6 +37,32 @@
     margin: 20px 0px;
     border-radius: 16px;
     padding: 20px 0px;
+    display: none;
+}
+
+/* 슬라이드업 */
+
+.scroll_up {
+    position: fixed;
+    bottom: 16px;
+    right: calc(50% - 648px);
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    background-color: var(--color-accent-variant);
+    border-radius: 100%;
+    color: var(--color-accent);
+    padding: 5px;
+    filter: brightness(150%);
+    cursor: pointer;
+}
+.scroll_up:hover {
+    background-color: var(--color-primary-variant);
+    color: var(--color-black);
 }
 
 /* 미디어쿼리 */
@@ -50,6 +75,9 @@
     }
     .card {
         height: 400px;
+    }
+    .scroll_up {
+        right: 8px;
     }
 }
 
