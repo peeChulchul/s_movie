@@ -99,15 +99,18 @@ function miniSubmit(e) {
         console.log(inputValue);
         const viewCard = data.includes(inputValue);
         if (!viewCard) {
-            card.style.position = 'fixed';
-            card.style.opacity = '0';
-            card.style.top = '-100%';
-            card.style.transform = 'scale(0)';
+            card.style.display = 'none';
         } else {
-            card.style.position = '';
-            card.style.top = '';
-            card.style.opacity = '1';
-            card.style.transform = 'scale(1)';
+            card.style.display = 'block';
+            card.animate(
+                [
+                    { transform: 'translateX(20%)', opacity: 0.5 },
+                    { transform: 'translateX(0%)', opacity: 1 },
+                ],
+                {
+                    duration: 300,
+                }
+            );
         }
     });
 }
