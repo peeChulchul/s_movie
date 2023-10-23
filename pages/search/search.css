@@ -63,6 +63,7 @@
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
     margin-bottom: 40px;
+    min-height: calc(100vh - 180px);
 }
 
 .card {

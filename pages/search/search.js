@@ -106,7 +106,8 @@ async function initFn(promise) {
         emptyText.textContent = '검색결과가 존재하지않습니다.';
         emptyText.classList.add('search__empty');
         console.log(emptyText);
-        $main.append(emptyText);
+        $main.prepend(emptyText);
+        $loading.forEach((element) => element.classList.remove('active'));
     } else {
         results.forEach((result) => {
             makeCards(result, $cardContainer, (e) => makeModal(e, result, $backDrop, $modal));
@@ -132,7 +133,6 @@ function miniSubmit(e) {
     const cards = document.querySelectorAll('.card');
     // 인풋의 벨류를 가져온다(모두 대문자로바꿔서)
     const inputValue = $miniFromInput.value.toUpperCase();
-
     // html콜랙션리스트에 있는 모든 html에 있는 data.title을 확인한다.
     // 현재 검색한 값을 포함하고있다면 해당 html요소의 display를 블록으로 아니면 없앤다.
     // 추가로 포함하고있는요소들에게는 약간의 애니메이션을 주었다.
