@@ -19,6 +19,7 @@ const $fromContainer = document.querySelector('.from_container');
 const $miniFrom = document.querySelector('.mini_from');
 const $miniFromInput = document.querySelector('.mini_from__input');
 const $loading = document.querySelectorAll('.loading');
+const $footer = document.querySelector('#footer');
 
 toggleDisplay($btnDay);
 toggleDisplay($btnNight);
@@ -42,6 +43,22 @@ $title.classList.add('search__title');
 $fromContainer.prepend($title);
 //
 
+// 인터센션옵저버
+const ioOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 1,
+};
+const callback = (entries, observer) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            onClickAddMovie();
+        }
+    });
+};
+
+let io = new IntersectionObserver(callback, ioOptions);
+
 // 데이터로 받아와야할 Promise다.
 const searchMovies = fetch(
     `https://api.themoviedb.org/3/search/movie?query=${q}&include_adult=false&language=ko-KR&page=${page}`,
@@ -63,10 +80,12 @@ async function initFn(promise) {
 
     isLoading = results.length > 1 ? false : true;
     !isLoading && $loading.forEach((element) => element.classList.remove('active'));
-
+    !isLoading && io.observe($footer);
     // $addMovieBtn은 다음페이지의 데이터를 불러오는 버튼으로 현재페이지가 마지막페이지인경우 display:none으로 만들어줬다.
     if (page === searchJson.total_pages) {
+        console.log(searchJson.total_pages);
         $addMovieBtn.style.display = 'none';
+        io.disconnect($footer);
     } else {
         $addMovieBtn.style.display = 'block';
     }
