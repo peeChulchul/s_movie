@@ -7,22 +7,6 @@
 }
 
 /* 로딩 */
-.loading {
-    display: none;
-}
-
-.loading.active {
-    width: 100%;
-    height: 350px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 80px;
-    color: var(--color-text);
-}
-.loading.active * {
-    animation: rotation infinite 0.8s linear;
-}
 
 .category {
     margin: 40px 0px;

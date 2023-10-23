@@ -25,7 +25,7 @@ function makeModal(e, movie, backDrop, modal) {
 
     const modalHtml = `
     <div class="modal__top">
-        <div class="modal__bg" style="background-image: url('https://image.tmdb.org/t/p/original/${
+        <div class="modal__bg" style="background-image: url('https://image.tmdb.org/t/p/w500${
             movie.backdrop_path
         }')"></div>
         <h1 class="modal__title">${movie.title}(${movie.release_date.split('-')[0]})</h1>
@@ -62,7 +62,7 @@ function makeCards(movie, container, modalfn) {
     card.classList.add('card');
     card.id = movie.id;
     card.dataset.title = movie.title;
-    card.style.backgroundImage = `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`;
+    card.style.backgroundImage = `url(https://image.tmdb.org/t/p/w300${movie.poster_path})`;
     container.appendChild(card);
     card.addEventListener('click', modalfn);
 }

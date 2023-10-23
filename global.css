@@ -392,3 +392,32 @@ body.dark .header__mode_icon.sun {
         height: 100%;
     }
 }
+
+/* 로딩 */
+
+.loading {
+    display: none;
+}
+
+.loading.active {
+    width: 100%;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    color: var(--color-text);
+}
+.loading.active * {
+    animation: rotation infinite 0.8s linear;
+}
+
+/* 키프레임 */
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
