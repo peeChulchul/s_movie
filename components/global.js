@@ -23,6 +23,7 @@ function makeModal(e, movie, backDrop, modal) {
     exitModalBtn.append(exitIcon);
     exitModalBtn.addEventListener('click', () => exitModal(backDrop, modal));
 
+    // html덩어리
     const modalHtml = `
     <div class="modal__top">
         <div class="modal__bg" style="background-image: url('https://image.tmdb.org/t/p/w500${
@@ -46,6 +47,9 @@ function makeModal(e, movie, backDrop, modal) {
     </div>
 `;
 
+    // innerHtml을사용하여 html덩어리를 주었다.
+    // append를 사용하면 택스트형태로 만들어준 html이 들어가질않는다...(다른방법 있으면 찾아봐야함)
+    // innerHtml의 경우 아마 덮어씌우는 형식인 듯 하다.
     modal.innerHTML = modalHtml;
     modal.append(exitModalBtn);
 }
@@ -84,6 +88,12 @@ function initDisplay() {
     display === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark');
 }
 
+// 클로저함수로 thorottling을 구현하였다.
+// 실행할 함수와 딜레이시간을 인자로 받는다.
+// 함수내부엔 throttle이란 변수가 선언되어있고 함수를 리턴하는 형태이다.
+// 리턴한 함수는 throttle이란 변수를 참조하고있어서 가비지컬렉션에 수집되지않는다.
+// throttle이 트루인경우엔 아무동작도하지않으며 , throttle이 false인 경우 throttle을 true로 바꿔주고 인자로 받은 함수를 동작시킨다.
+// 이후 setTimeout을 통해 인자로받은 딜레이시간만큼 기다린 후 throttle을 false로 만들어 다시 동작이 가능하게 만든다.
 function throttling(fn, delay) {
     let throttle = false;
 

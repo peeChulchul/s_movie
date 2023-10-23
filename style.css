@@ -6,8 +6,6 @@
     margin: 0 auto;
 }
 
-/* 로딩 */
-
 .category {
     margin: 40px 0px;
 }
@@ -75,16 +73,6 @@
 }
 .card__btn__icon {
     padding: 8px;
-}
-
-/* 키프레임 */
-@keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
 }
 
 /* 미디어쿼리 */

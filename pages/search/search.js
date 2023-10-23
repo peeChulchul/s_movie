@@ -44,11 +44,13 @@ $fromContainer.prepend($title);
 //
 
 // 인터센션옵저버
+// 옵션
 const ioOptions = {
     root: null,
     rootMargin: '0px',
     threshold: 1,
 };
+// 콜백 옵저브한 대상이 화면에 들어오면 함수를 실행시킨다.
 const callback = (entries, observer) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -57,6 +59,7 @@ const callback = (entries, observer) => {
     });
 };
 
+// 새로운 인터섹션옵저버 생성
 let io = new IntersectionObserver(callback, ioOptions);
 
 // 데이터로 받아와야할 Promise다.
@@ -65,8 +68,10 @@ const searchMovies = fetch(
     options
 ).then((promise) => promise.json());
 
+// 로딩의 상태이다.
 let isLoading = true;
 
+//
 async function initFn(promise) {
     initDisplay();
     $loading.forEach((element) => element.classList.add('active'));
@@ -78,9 +83,13 @@ async function initFn(promise) {
     const { results } = searchJson;
     const empty = results.length <= 0;
 
+    // 결과값을 잘 가져온 경우에만 로딩에 active를 제거해준다.
+    // 로딩중이 아닌경우에만 $footer를 옵저버에 추가해준다.
     isLoading = results.length > 1 ? false : true;
     !isLoading && $loading.forEach((element) => element.classList.remove('active'));
+    // 성능을 위해 개선해야하는로직 (함수실행시 계속 옵저브함)
     !isLoading && io.observe($footer);
+
     // $addMovieBtn은 다음페이지의 데이터를 불러오는 버튼으로 현재페이지가 마지막페이지인경우 display:none으로 만들어줬다.
     if (page === searchJson.total_pages) {
         console.log(searchJson.total_pages);
@@ -116,10 +125,17 @@ function onClickAddMovie() {
     return initFn(addMovieList);
 }
 
+// 내부요소들을 검색하는 함수이다.
 function miniSubmit(e) {
     e.preventDefault();
+    // 현재 dom에있는 모든 .card클래스명을 가진 요소들을 html콜렉션으로 가져온다
     const cards = document.querySelectorAll('.card');
+    // 인풋의 벨류를 가져온다(모두 대문자로바꿔서)
     const inputValue = $miniFromInput.value.toUpperCase();
+
+    // html콜랙션리스트에 있는 모든 html에 있는 data.title을 확인한다.
+    // 현재 검색한 값을 포함하고있다면 해당 html요소의 display를 블록으로 아니면 없앤다.
+    // 추가로 포함하고있는요소들에게는 약간의 애니메이션을 주었다.
     cards.forEach((card) => {
         const data = card.dataset.title.toUpperCase();
         const viewCard = data.includes(inputValue);

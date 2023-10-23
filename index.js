@@ -19,6 +19,7 @@ const counter = {
     nowPlaying: 0,
 };
 
+// 로딩의 상태
 let isLoading = true;
 
 // 버튼등록
@@ -77,8 +78,10 @@ async function initFn() {
     // movies는 각 카테고리별 영화리스트들을 가진 배열이다.
     const movies = await fetchApi([Popular, TopRated, NowPlaying], categorys);
 
+    // movies를 잘 가져온 경우에만 모든로딩을 없애준다.
     isLoading = movies.length > 1 ? false : true;
     !isLoading && $loading.forEach((element) => element.classList.remove('active'));
+
     // movies의 각카테고리마다 makeCarousels에 영화정보를 담아 실행시켰다.
     movies.forEach((movie) => makeCarousels(movie));
 }
@@ -114,6 +117,7 @@ function makeCarousels(movies) {
     container.parentNode.insertBefore(next, container);
 
     // next 및 prev에 이벤트리스너 장착
+    // throttling함수를 통해 400s동안은 중복클릭해도 동작하지않도록 하였다.
     next.addEventListener(
         'click',
         throttling((e) => onClickCardNav(e, container), 400)
@@ -139,9 +143,6 @@ function onClickCardNav(e, container) {
     const category = Array.from(container.classList).find((name) => name !== 'card_carousel');
     const maxPage = Math.round(20 / viewCard);
 
-    console.log(e.currentTarget);
-    console.log(e.target);
-    console.log('클릭 이벤트 실행');
     // 전역 변수로 만들어둔 객체 counter는 키로 카테고리명을 벨류로 카운터(숫자)를 가지고있다.
     // 변수로 만들어둔 카테고리명과 같은 키를 통해 카운터를 찾고 카운터의 수에따라 다른 조건의 동작을 하도록 만들었다.
     // if문과 삼항연산자를 통해 현재 카운트와 맥스페이지를 비교하여 기능하도록 하였다.
