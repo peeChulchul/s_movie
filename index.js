@@ -80,6 +80,8 @@ async function initFn() {
 
     // movies를 잘 가져온 경우에만 모든로딩을 없애준다.
     isLoading = movies.length > 1 ? false : true;
+
+    console.log(movies.length);
     !isLoading && $loading.forEach((element) => element.classList.remove('active'));
 
     // movies의 각카테고리마다 makeCarousels에 영화정보를 담아 실행시켰다.

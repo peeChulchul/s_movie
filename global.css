@@ -397,6 +397,9 @@ body.dark .header__mode_icon.sun {
 
 .loading {
     display: none;
+    overflow: hidden;
+    width: 0px;
+    height: 0px;
 }
 
 .loading.active {
@@ -408,7 +411,8 @@ body.dark .header__mode_icon.sun {
     font-size: 80px;
     color: var(--color-text);
 }
-.loading.active * {
+
+.loading.active {
     animation: rotation infinite 0.8s linear;
 }
 
