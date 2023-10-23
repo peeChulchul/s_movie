@@ -47,11 +47,8 @@
 
 .card__next,
 .card__prev {
-    width: 35px;
-    height: 35px;
     position: absolute;
     top: 50%;
-    padding: 4px;
     color: var(--color-white);
     border-radius: 50%;
     font-size: 20px;
@@ -73,6 +70,9 @@
 .card__prev {
     left: 4px;
     display: none;
+}
+.card__btn__icon {
+    padding: 8px;
 }
 
 @media screen and (max-width: 1200px) {

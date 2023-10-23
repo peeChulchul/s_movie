@@ -84,4 +84,19 @@ function initDisplay() {
     display === 'dark' ? document.body.classList.add('dark') : document.body.classList.remove('dark');
 }
 
-export { makeModal, exitModal, makeCards, toggleDisplay, initDisplay };
+function throttling(fn, delay) {
+    let throttle = false;
+
+    return (e) => {
+        if (throttle) return;
+
+        throttle = true;
+
+        fn(e);
+        setTimeout(() => {
+            throttle = false;
+        }, delay);
+    };
+}
+
+export { makeModal, exitModal, makeCards, toggleDisplay, initDisplay, throttling };

@@ -1,6 +1,6 @@
 // 임포트
 import { options, fetchApi } from './components/api.js';
-import { makeModal, exitModal, makeCards, toggleDisplay, initDisplay } from './components/global.js';
+import { makeModal, exitModal, makeCards, toggleDisplay, initDisplay, throttling } from './components/global.js';
 import { submitFrom } from './components/submit.js';
 // Dom
 const $cardCarousels = document.querySelectorAll('.card_carousel');
@@ -96,8 +96,10 @@ function makeCarousels(movies) {
     const prev = document.createElement('button');
     prevArrow.classList.add('fa-solid');
     prevArrow.classList.add('fa-backward');
+    prevArrow.classList.add('card__btn__icon');
     nextArrow.classList.add('fa-solid');
     nextArrow.classList.add('fa-forward');
+    nextArrow.classList.add('card__btn__icon');
     next.classList.add('card__next');
     prev.classList.add('card__prev');
     next.appendChild(nextArrow);
@@ -107,9 +109,14 @@ function makeCarousels(movies) {
     container.parentNode.insertBefore(next, container);
 
     // next 및 prev에 이벤트리스너 장착
-    next.addEventListener('click', (e) => onClickCardNav(e, container));
-    prev.addEventListener('click', (e) => onClickCardNav(e, container));
-
+    next.addEventListener(
+        'click',
+        throttling((e) => onClickCardNav(e, container), 400)
+    );
+    prev.addEventListener(
+        'click',
+        throttling((e) => onClickCardNav(e, container), 400)
+    );
     results.forEach((movie) => {
         // 영화의 수만큼 카드를 만들어서 어펜드 시켜준다 추가로 카드 클릭시 일어날 이벤트도 등록
         makeCards(movie, container, (e) => makeModal(e, movie, $backDrop, $modal));
@@ -122,26 +129,29 @@ function onClickCardNav(e, container) {
     // 인자로 받은 컨테이너의 클래스명에서 카드 캐러셀을 제외한 클래스명을 반환 (카드캐러셀을 제외하면 카테고리명이 남는다.)
     // maxPage는 데이터를 각 20개씩만 받아오기때문에 20나누기 보여줄 카드 수를 하였다.
     // 소수점이 남으면 안되기때문에 Math.round로 반올림 해버렸다.
-    const next = e.currentTarget.classList.contains('card__next');
-    const prev = e.currentTarget.classList.contains('card__prev');
+    const next = e.target.parentNode.classList.contains('card__next');
+    const prev = e.target.parentNode.classList.contains('card__prev');
     const category = Array.from(container.classList).find((name) => name !== 'card_carousel');
     const maxPage = Math.round(20 / viewCard);
 
+    console.log(e.currentTarget);
+    console.log(e.target);
+    console.log('클릭 이벤트 실행');
     // 전역 변수로 만들어둔 객체 counter는 키로 카테고리명을 벨류로 카운터(숫자)를 가지고있다.
     // 변수로 만들어둔 카테고리명과 같은 키를 통해 카운터를 찾고 카운터의 수에따라 다른 조건의 동작을 하도록 만들었다.
     // if문과 삼항연산자를 통해 현재 카운트와 맥스페이지를 비교하여 기능하도록 하였다.
     if (next && counter[category] < maxPage) {
         counter[category]++;
         container.style.transform = `translateX(-${counter[category] * 100}%)`;
-        e.currentTarget.parentNode.children[0].style.display = 'block';
-        e.currentTarget.style.display = counter[category] === maxPage - 1 ? 'none' : 'block';
+        container.parentNode.children[0].style.display = 'block';
+        e.target.parentNode.style.display = counter[category] === maxPage - 1 ? 'none' : 'block';
         return;
     }
     if (prev && counter[category] > 0) {
         counter[category]--;
         container.style.transform = `translateX(-${counter[category] * 100}%)`;
-        e.currentTarget.parentNode.children[1].style.display = 'block';
-        e.currentTarget.style.display = counter[category] === 0 ? 'none' : 'block';
+        container.parentNode.children[1].style.display = 'block';
+        e.target.parentNode.style.display = counter[category] === 0 ? 'none' : 'block';
         return;
     }
 }
