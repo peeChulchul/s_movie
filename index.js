@@ -10,6 +10,7 @@ const $input = document.querySelector('.header__form__input');
 const $from = document.querySelector('.header__form');
 const $btnDay = document.querySelector('.header__mode_icon.sun');
 const $btnNight = document.querySelector('.header__mode_icon.moon');
+const $loading = document.querySelectorAll('.loading');
 
 // counter
 const counter = {
@@ -17,6 +18,8 @@ const counter = {
     topRated: 0,
     nowPlaying: 0,
 };
+
+let isLoading = true;
 
 // 버튼등록
 toggleDisplay($btnDay);
@@ -74,6 +77,8 @@ async function initFn() {
     // movies는 각 카테고리별 영화리스트들을 가진 배열이다.
     const movies = await fetchApi([Popular, TopRated, NowPlaying], categorys);
 
+    isLoading = movies.length > 1 ? false : true;
+    !isLoading && $loading.forEach((element) => element.classList.remove('active'));
     // movies의 각카테고리마다 makeCarousels에 영화정보를 담아 실행시켰다.
     movies.forEach((movie) => makeCarousels(movie));
 }
