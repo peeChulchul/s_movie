@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>S_Movie</title>
-        <link rel="stylesheet" href="./style.css" />
-    </head>
-    <body>
-        <!-- modal -->
-        <div id="back_drop"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>S_Movie</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- modal -->
+    <div id="back_drop"></div>
 
-        <section id="modal"></section>
+    <section id="modal"></section>
 
-        <!-- 헤더 -->
-        <header id="header">
-            <div class="header__container">
-                <nav class="header__nav">
-                    <h1 style="cursor: default" class="header__title">S Movie</h1>
-                    <button class="header__mode_icon sun">
-                        <i class="fa-solid fa-sun"></i>
-                    </button>
-                    <button class="header__mode_icon moon">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
-                </nav>
-                <form class="header__form">
-                    <input class="header__form__input" placeholder="제목을 입력해주세요" />
-                    <button class="header__form__button">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
-            </div>
-        </header>
-        <!-- 메인 -->
-        <div id="main">
-            <section class="category">
-                <h2 class="category__title">인기영화</h2>
-                <main class="card_container">
-                    <div class="loading active"><i class="fa-solid fa-spinner"></i></div>
-                    <div class="card_carousel popular"></div>
-                    <!--  -->
-                </main>
-            </section>
-            <section class="category">
-                <h2 class="category__title">최고평점</h2>
-                <main class="card_container">
-                    <div class="loading active"><i class="fa-solid fa-spinner"></i></div>
+    <!-- 헤더 -->
+    <header id="header">
+      <div class="header__container">
+        <nav class="header__nav">
+          <h1 style="cursor: default" class="header__title">S Movie</h1>
+          <button class="header__mode_icon sun">
+            <i class="fa-solid fa-sun"></i>
+          </button>
+          <button class="header__mode_icon moon">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </nav>
+        <form class="header__form">
+          <input class="header__form__input" placeholder="제목을 입력해주세요" />
+          <button class="header__form__button">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+    </header>
+    <!-- 메인 -->
+    <div id="main">
+      <section class="category">
+        <h2 class="category__title">인기영화</h2>
+        <main class="card_container">
+          <div class="loading active"><i class="fa-solid fa-spinner"></i></div>
+          <div class="card_carousel popular"></div>
+          <!--  -->
+        </main>
+      </section>
+      <section class="category">
+        <h2 class="category__title">최고평점</h2>
+        <main class="card_container">
+          <div class="loading active"><i class="fa-solid fa-spinner"></i></div>
 
-                    <div class="card_carousel topRated"></div>
+          <div class="card_carousel topRated"></div>
 
-                    <!--  -->
-                </main>
-            </section>
-            <section class="category">
-                <h2 class="category__title">극장상영중</h2>
-                <main class="card_container">
-                    <div class="loading active"><i class="fa-solid fa-spinner"></i></div>
+          <!--  -->
+        </main>
+      </section>
+      <section class="category">
+        <h2 class="category__title">극장상영중</h2>
+        <main class="card_container">
+          <div class="loading active"><i class="fa-solid fa-spinner"></i></div>
 
-                    <div class="card_carousel nowPlaying"></div>
+          <div class="card_carousel nowPlaying"></div>
 
-                    <!--  -->
-                </main>
-            </section>
-        </div>
+          <!--  -->
+        </main>
+      </section>
+    </div>
 
-        <!-- 푸터 -->
-        <footer id="footer">
-            <div class="footer__container">
-                <h1 class="footer__title">S Movie</h1>
-                <p>S Movie -all rights reserved</p>
-                <p>@TMDB @fontAwesome @SpartaCodingClub</p>
-            </div>
-        </footer>
-        <!-- 스크립트 -->
-        <script type="module" src="./index.js"></script>
-        <script src="https://kit.fontawesome.com/3598ac7256.js" crossorigin="anonymous"></script>
-    </body>
+    <!-- 푸터 -->
+    <footer id="footer">
+      <div class="footer__container">
+        <h1 class="footer__title">S Movie</h1>
+        <p>S Movie -all rights reserved</p>
+        <p>@TMDB @fontAwesome @SpartaCodingClub</p>
+      </div>
+    </footer>
+    <!-- 스크립트 -->
+    <script type="module" src="./index.js"></script>
+    <script src="https://kit.fontawesome.com/3598ac7256.js" crossorigin="anonymous"></script>
+  </body>
 </html>
